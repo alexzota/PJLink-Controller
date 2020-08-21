@@ -4,6 +4,10 @@
     {
         public ResponseType ResponseType { get; set; }
 
+        public Command()
+        {
+        }
+
         public virtual ResponseType GetResponse(string response)
         {
             if (response.Contains("=ERR1"))

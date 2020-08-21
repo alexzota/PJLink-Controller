@@ -1,4 +1,6 @@
 ﻿using PJLink_Controller.Commands;
+using PJLink_Controller.Commands.InputSource;
+using PJLink_Controller.Commands.Power;
 using System;
 using System.Net.Sockets;
 using System.Security.Cryptography;
@@ -41,6 +43,10 @@ namespace PJLink_Controller
                 {
                     InitializeConnection();
                 }
+                if (_client == null || _client.Connected == false)
+                {
+                    return ResponseType.ERROR;
+                }
 
                 var commandString = command.GetCommand();
                 commandString = CreateMD5(_sequence + _password) + commandString;
@@ -65,7 +71,7 @@ namespace PJLink_Controller
         /// As a tcp client connection cannot be reused after closing, we will instantiate another instance everytime
         /// </summary>
         /// <returns></returns>
-        public bool InitializeConnection()
+        private bool InitializeConnection()
         {
             try
             {
@@ -86,13 +92,13 @@ namespace PJLink_Controller
                 }
                 return false;
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
         }
 
-        public void CloseConnection()
+        private void CloseConnection()
         {
             if (_client != null)
             {
@@ -104,7 +110,7 @@ namespace PJLink_Controller
             }
         }
 
-        public string CreateMD5(string input)
+        private string CreateMD5(string input)
         {
             // Use input string to calculate MD5 hash
             using (MD5 md5 = MD5.Create())
@@ -124,17 +130,32 @@ namespace PJLink_Controller
 
         public bool TurnOn()
         {
-            throw new NotImplementedException();
+            var turnOnCommand = new PowerCommand(PowerInstructionType.ON);
+            return SendCommand(turnOnCommand) == ResponseType.SUCCESSFUL_EXECUTION;
         }
 
         public bool TurnOff()
         {
-            throw new NotImplementedException();
+            var turnOffCommand = new PowerCommand(PowerInstructionType.OFF);
+            return SendCommand(turnOffCommand) == ResponseType.SUCCESSFUL_EXECUTION;
         }
 
         public bool PowerQuery()
         {
-            throw new NotImplementedException();
+            var powerQueryCommand = new PowerCommand(PowerInstructionType.QUERY);
+            return SendCommand(powerQueryCommand) == ResponseType.SUCCESSFUL_EXECUTION;
+        }
+
+        public bool SetSource(InputInstructionType command)
+        {
+            var setInputCommand = new InputCommand(command);
+            return SendCommand(setInputCommand) == ResponseType.SUCCESSFUL_EXECUTION;
+        }
+
+        public bool SourceQuery()
+        {
+            var sourceQueryCommand = new InputCommand(InputInstructionType.QUERY);
+            return SendCommand(sourceQueryCommand) == ResponseType.SUCCESSFUL_EXECUTION;
         }
     }
 }

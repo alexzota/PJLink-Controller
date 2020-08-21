@@ -1,11 +1,15 @@
-﻿namespace PJLink_Controller.Commands.InputSource
+﻿using System;
+
+namespace PJLink_Controller.Commands.InputSource
 {
     public class InputCommand : Command
     {
         private InputInstructionType _requestType { get; set; }
+        public InputSourceType _inputSource { get; set; }
+
         private int _port { get; set; } = -1;
 
-        public InputCommand(InputInstructionType requestType, int port = -1)
+        public InputCommand(InputInstructionType requestType, int port = -1): base()
         {
             _requestType = requestType;
             _port = port;
@@ -19,9 +23,13 @@
             {
                 command += "?";
             }
-            else if (_port > 0)
+            else if (_port > 0 && _port < 10)
             {
                 command += _requestType + _port;
+            }
+            else
+            {
+                throw new Exception();
             }
 
             return command;
@@ -33,24 +41,17 @@
 
             if (baseResponse != ResponseType.SUCCESSFUL_EXECUTION)
             {
-                _powerStatus = PowerStatus.UNDEFINED;
+                _inputSource = InputSourceType.UNDEFINED;
                 return baseResponse;
             }
 
-            if (_requestType == PowerInstructionType.QUERY)
+            if (_requestType == InputInstructionType.QUERY)
             {
-                response = response.Replace("%1POWR=", "");
-                int powerValue = int.Parse(response);
+                response = response.Replace("%1INPT=", "");
+                int inputValue = int.Parse(response);
 
-                switch (powerValue)
-                {
-                    case 0:
-                        _powerStatus = PowerStatus.OFF;
-                        break;
-                    case 1:
-                        _powerStatus = PowerStatus.ON;
-                        break;
-                }
+                _inputSource = (InputSourceType)(inputValue / 10);
+                _port = inputValue % 10;
             }
 
             return ResponseType.SUCCESSFUL_EXECUTION;

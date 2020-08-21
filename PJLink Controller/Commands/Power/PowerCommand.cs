@@ -3,9 +3,9 @@
     public class PowerCommand : Command
     {
         private PowerInstructionType _requestType { get; set; }
-        private PowerStatus _powerStatus { get; set; }
+        public PowerStatus _powerStatus { get; set; }
 
-        public PowerCommand(PowerInstructionType requestType)
+        public PowerCommand(PowerInstructionType requestType): base()
         {
             _requestType = requestType;
         }
