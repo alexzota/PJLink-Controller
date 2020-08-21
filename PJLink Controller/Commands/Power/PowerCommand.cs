@@ -3,7 +3,7 @@
     public class PowerCommand : Command
     {
         private PowerInstructionType _requestType { get; set; }
-        public PowerStatus _powerStatus { get; set; }
+        public PowerStatus CurrentPowerStatus { get; set; }
 
         public PowerCommand(PowerInstructionType requestType): base()
         {
@@ -36,7 +36,7 @@
 
             if (baseResponse != ResponseType.SUCCESSFUL_EXECUTION)
             {
-                _powerStatus = PowerStatus.UNDEFINED;
+                CurrentPowerStatus = PowerStatus.UNDEFINED;
                 return baseResponse;
             }
 
@@ -48,10 +48,10 @@
                 switch (powerValue)
                 {
                     case 0:
-                        _powerStatus = PowerStatus.OFF;
+                        CurrentPowerStatus = PowerStatus.OFF;
                         break;
                     case 1:
-                        _powerStatus = PowerStatus.ON;
+                        CurrentPowerStatus = PowerStatus.ON;
                         break;
                 }
             }

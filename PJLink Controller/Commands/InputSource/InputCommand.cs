@@ -5,7 +5,7 @@ namespace PJLink_Controller.Commands.InputSource
     public class InputCommand : Command
     {
         private InputInstructionType _requestType { get; set; }
-        public InputSourceType _inputSource { get; set; }
+        public InputSourceType CurrentInputSource { get; set; }
 
         private int _port { get; set; } = -1;
 
@@ -41,7 +41,7 @@ namespace PJLink_Controller.Commands.InputSource
 
             if (baseResponse != ResponseType.SUCCESSFUL_EXECUTION)
             {
-                _inputSource = InputSourceType.UNDEFINED;
+                CurrentInputSource = InputSourceType.UNDEFINED;
                 return baseResponse;
             }
 
@@ -50,7 +50,7 @@ namespace PJLink_Controller.Commands.InputSource
                 response = response.Replace("%1INPT=", "");
                 int inputValue = int.Parse(response);
 
-                _inputSource = (InputSourceType)(inputValue / 10);
+                CurrentInputSource = (InputSourceType)(inputValue / 10);
                 _port = inputValue % 10;
             }
 

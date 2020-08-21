@@ -12,28 +12,28 @@ namespace PJLink_Controller
 
             PowerCommand powerOnCommand = new PowerCommand(PowerInstructionType.ON);
             projector.SendCommand(powerOnCommand);
-            Console.WriteLine($"The projector is {powerOnCommand._powerStatus}");
+            Console.WriteLine($"The projector is {powerOnCommand.CurrentPowerStatus}");
 
 
 
             InputCommand sourceVideoCommand = new InputCommand(InputInstructionType.VIDEO);
             projector.SendCommand(sourceVideoCommand);
-            Console.WriteLine($"Source set to: {sourceVideoCommand._inputSource}");
+            Console.WriteLine($"Source set to: {sourceVideoCommand.CurrentInputSource}");
 
             InputCommand sourceQueryCommand = new InputCommand(InputInstructionType.QUERY);
             projector.SendCommand(sourceQueryCommand);
-            Console.WriteLine($"Current source: {sourceQueryCommand._inputSource}");
+            Console.WriteLine($"Current source: {sourceQueryCommand.CurrentInputSource}");
 
 
 
 
             PowerCommand powerQueryCommand = new PowerCommand(PowerInstructionType.QUERY);
             projector.SendCommand(powerQueryCommand);
-            Console.WriteLine($"The projector is {powerQueryCommand._powerStatus}");
+            Console.WriteLine($"The projector is {powerQueryCommand.CurrentPowerStatus}");
 
             PowerCommand powerOffCommand = new PowerCommand(PowerInstructionType.OFF);
             projector.SendCommand(powerOffCommand);
-            Console.WriteLine($"The projector is {powerOffCommand._powerStatus}");
+            Console.WriteLine($"The projector is {powerOffCommand.CurrentPowerStatus}");
         }
     }
 }
