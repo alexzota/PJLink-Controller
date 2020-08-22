@@ -16,11 +16,11 @@
 
             switch (_requestType)
             {
+                case PowerInstructionType.OFF:
+                    command += "0";
+                    break;
                 case PowerInstructionType.ON:
                     command += "1";
-                    break;
-                case PowerInstructionType.OFF:
-                    command += "2";
                     break;
                 case PowerInstructionType.QUERY:
                     command += "?";
