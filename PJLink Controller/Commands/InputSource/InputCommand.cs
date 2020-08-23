@@ -25,7 +25,7 @@ namespace PJLink_Controller.Commands.InputSource
             }
             else if (_port > 0 && _port < 10)
             {
-                command += _requestType + _port;
+                command += (int)_requestType + _port.ToString();
             }
             else
             {

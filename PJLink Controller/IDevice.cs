@@ -1,4 +1,6 @@
-﻿namespace PJLink_Controller
+﻿using PJLink_Controller.Commands;
+
+namespace PJLink_Controller
 {
     public interface IDevice
     {

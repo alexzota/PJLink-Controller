@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PJLink Controller", "PJLink Controller\PJLink Controller.csproj", "{268358DE-9380-4EF3-966A-5EDBBCB76947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PJLink Controller", "PJLink Controller\PJLink Controller.csproj", "{268358DE-9380-4EF3-966A-5EDBBCB76947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PJLinkController.UnitTests", "PJLinkController.UnitTests\PJLinkController.UnitTests.csproj", "{D139A0F8-D16B-4DA4-A782-FB0B4AF49AB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{268358DE-9380-4EF3-966A-5EDBBCB76947}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{268358DE-9380-4EF3-966A-5EDBBCB76947}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{268358DE-9380-4EF3-966A-5EDBBCB76947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D139A0F8-D16B-4DA4-A782-FB0B4AF49AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D139A0F8-D16B-4DA4-A782-FB0B4AF49AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D139A0F8-D16B-4DA4-A782-FB0B4AF49AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D139A0F8-D16B-4DA4-A782-FB0B4AF49AB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,6 +5,7 @@ using System;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PJLink_Controller
 {
@@ -34,9 +35,13 @@ namespace PJLink_Controller
         {
             _password = password;
         }
+        public PJLinkProjector()
+        {
+        }
 
         public ResponseType SendCommand(Command command)
         {
+            Console.WriteLine($"DEBUG - Started process to send command {command}");
             try
             {
                 if (_client == null || _client.Connected == false)
@@ -58,6 +63,7 @@ namespace PJLink_Controller
                 int noOfBytesReceived = _stream.Read(responseBytes, 0, _client.ReceiveBufferSize);
 
                 string returndata = Encoding.ASCII.GetString(responseBytes, 0, noOfBytesReceived).Trim();
+                Console.WriteLine($"DEBUG - Finished sending command {command}");
 
                 return command.GetResponse(returndata);
             }
@@ -67,12 +73,21 @@ namespace PJLink_Controller
             }
         }
 
+        public async Task<ResponseType> SendCommandAsync(Command command)
+        {
+            var response = await Task.Run(() => SendCommand(command));
+
+            return response;
+        }
+
         /// <summary>
         /// As a tcp client connection cannot be reused after closing, we will instantiate another instance everytime
         /// </summary>
         /// <returns></returns>
         private bool InitializeConnection()
         {
+            Console.WriteLine($"DEBUG - Trying to open projector connection");
+
             try
             {
                 if (_client == null || _client.Connected == false)
@@ -88,18 +103,26 @@ namespace PJLink_Controller
                     //In the mail it's said that the projector is always protected by a password so the response will be PJLINK 1 x-x always
                     _sequence = response.Substring(8);
 
+                    Console.WriteLine($"DEBUG - Opened projector connection");
+
                     return true;
                 }
+
+                Console.WriteLine($"DEBUG - Failed opening projector connection");
+
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception)
             {
+                Console.WriteLine($"DEBUG - Failed opening projector connection");
                 return false;
             }
         }
 
         private void CloseConnection()
         {
+            Console.WriteLine($"DEBUG - Closing projector connection");
+
             if (_client != null)
             {
                 _client.Close();
@@ -108,6 +131,8 @@ namespace PJLink_Controller
             {
                 _stream.Close();
             }
+
+            Console.WriteLine($"DEBUG - Finished closing projector connection");
         }
 
         private string CreateMD5(string input)

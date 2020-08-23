@@ -10,6 +10,8 @@
 
         public virtual ResponseType GetResponse(string response)
         {
+            System.Console.WriteLine($"DEBUG - Started processing response: {response}");
+
             if (response.Contains("=ERR1"))
             {
                 ResponseType = ResponseType.UNDEFINED_COMMAND;
@@ -34,6 +36,8 @@
             {
                 ResponseType = ResponseType.SUCCESSFUL_EXECUTION;
             }
+
+            System.Console.WriteLine($"DEBUG - Finished processing response: {response}");
 
             return ResponseType;
         }

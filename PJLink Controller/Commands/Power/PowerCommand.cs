@@ -2,7 +2,7 @@
 {
     public class PowerCommand : Command
     {
-        private PowerInstructionType _requestType { get; set; }
+        public PowerInstructionType _requestType { get; set; }
         public PowerStatus CurrentPowerStatus { get; set; }
 
         public PowerCommand(PowerInstructionType requestType): base()
@@ -52,6 +52,9 @@
                         break;
                     case 1:
                         CurrentPowerStatus = PowerStatus.ON;
+                        break;
+                    default:
+                        CurrentPowerStatus = PowerStatus.UNDEFINED;
                         break;
                 }
             }

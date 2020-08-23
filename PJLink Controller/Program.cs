@@ -1,17 +1,18 @@
 ﻿using PJLink_Controller.Commands.InputSource;
 using PJLink_Controller.Commands.Power;
 using System;
+using System.Threading.Tasks;
 
 namespace PJLink_Controller
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var projector = new PJLinkProjector("192.0.0.1", "password");
 
             PowerCommand powerOnCommand = new PowerCommand(PowerInstructionType.ON);
-            projector.SendCommand(powerOnCommand);
+            await projector.SendCommandAsync(powerOnCommand);
             Console.WriteLine($"The projector is {powerOnCommand.CurrentPowerStatus}");
 
 
